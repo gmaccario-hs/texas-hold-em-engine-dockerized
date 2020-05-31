@@ -1,8 +1,8 @@
-# PHP Texas Hold'em Engine
+# PHP Texas Hold'em Hands Validation Engine
 
 ## Installation
 ```
-git clone https://github.com/gmaccario/texas-hold-em-engine.git texas-hold-em-engine
+git clone https://github.com/gmaccario/texas-hold-em-engine-dockerized.git texas-hold-em-engine
 cd texas-hold-em-engine
 docker-compose up -d
 
