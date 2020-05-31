@@ -21,11 +21,7 @@ $appName = php_sapi_name() == 'cli' ? 'console' : 'http';
 
 if ($appName == 'console')
 {
-  $fileParser = new FileParser();
-  $ranking = new Ranking();
-  $handsRulesEngine = new HandsRulesEngine($ranking);
-
   $app = new Application();
-  $app->add(new HandsRulesEngineCommand($fileParser, $handsRulesEngine));
+  $app->add(new HandsRulesEngineCommand(new FileParser(), new HandsRulesEngine(new Ranking())));
   $app->run();
 }
