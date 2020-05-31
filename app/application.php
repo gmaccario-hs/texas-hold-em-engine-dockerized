@@ -17,15 +17,14 @@ use TexasHoldem\Engine\HandsRulesEngine;
 $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
 $fileParser = new FileParser();
-$ranking = new Ranking();
-$handsRulesEngine = new HandsRulesEngine($ranking);
-
 $fileParser->setFileName($fileName);
 
 $originalHands = $fileParser->parseFile();
 
 dump("Original Hands", $originalHands);
 
+$ranking = new Ranking();
+$handsRulesEngine = new HandsRulesEngine($ranking);
 $handsRulesEngine->setHands($originalHands);
 
 $ranked = $handsRulesEngine->getSortedHands();
