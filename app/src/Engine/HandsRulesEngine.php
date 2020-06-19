@@ -74,10 +74,6 @@ class HandsRulesEngine
     {
       $this->ranking->setHand($hand);
 
-
-      // @TODO IL PROBLEMA E' CHE SOVRASCRIVO I VALORI NEGLI STESSI INDICI
-
-
       if($this->ranking->isRoyalFlush() > 0)
       {
         $sorted[$hand->getScore()][] = $hand;
