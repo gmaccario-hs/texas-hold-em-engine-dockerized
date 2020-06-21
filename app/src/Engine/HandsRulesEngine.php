@@ -76,7 +76,7 @@ class HandsRulesEngine
 
       if($this->ranking->isRoyalFlush() > 0)
       {
-        $sorted[$hand->getScore()][] = $hand;
+        $sorted[$hand->getScore()][] = $hand; // @todo Use it as an index for inner array $hand->getSpecificScore()
       }
       else if($this->ranking->isStraightFlush() > 0)
       {
@@ -120,6 +120,16 @@ class HandsRulesEngine
     }
 
     ksort($sorted);
+
+    // Sorting Nested Array (same value hands)
+    foreach($sorted as $key => $sameHandsUnsorted)
+    {
+        $sameHandsUnsorted = $this->ranking->compareSameHands($sameHandsUnsorted);
+
+        unset($sorted[$key]);
+
+        $sorted[$key] = $sameHandsUnsorted;
+    }
 
     return array_reverse($sorted, true);
   }

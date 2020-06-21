@@ -9,6 +9,7 @@ class Hand
   protected $index = 0;
   protected $score = 0;
   protected $scoreName = "";
+  protected $specificScore = 0;
   protected $cards = array();
 
   /**
@@ -100,5 +101,25 @@ class Hand
   public function setScoreName(string $scoreName)
   {
     return $this->scoreName = $scoreName;
+  }
+
+  /**
+   *
+   * @return int
+   */
+  public function getSpecificScore() : int
+  {
+    return $this->specificScore;
+  }
+
+  /**
+   *
+   * @param int $specificScore
+   *
+   * @return void
+   */
+  public function setSpecificScore(int $specificScore)
+  {
+    return $this->specificScore = $specificScore;
   }
 }

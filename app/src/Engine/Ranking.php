@@ -60,6 +60,32 @@ class Ranking
 
   /**
    *
+   * @param int $specificScore
+   *
+   * @return void
+   */
+  public function setHandSpecificScore(int $specificScore)
+  {
+    $this->hand->setSpecificScore($specificScore);
+  }
+
+  /**
+    *
+    * @param array $unsorted
+    *
+    * @return void
+    */
+   public function compareSameHands(array $unsorted)
+   {
+       usort($unsorted, function ($handA, $handB) {
+           return $handB->getSpecificScore() - $handA->getSpecificScore();
+       });
+
+       return $unsorted;
+   }
+
+  /**
+   *
    * @param int $score
    *
    * @return void
@@ -125,6 +151,7 @@ class Ranking
   {
     $lastSuit = 0;
     $totSuits = 0;
+    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
       if($card->getDenominationConverted() < 9)
@@ -134,6 +161,7 @@ class Ranking
 
       $lastSuit = $card->getSuitConverted();
       $totSuits = $totSuits + $card->getSuitConverted();
+      $totDenominations = $totDenominations + $card->getDenominationConverted();
     }
 
     // Check same suits
@@ -141,6 +169,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::ROYAL_FLUSH + $totDenominations);
 
     $this->setHandScore(Ranking::ROYAL_FLUSH);
 
@@ -157,6 +187,7 @@ class Ranking
   {
     $lastSuit = 0;
     $totSuits = 0;
+    $totDenominations = 0;
     $tmp = array();
     foreach($this->getCards() as $card)
     {
@@ -167,6 +198,7 @@ class Ranking
 
       $lastSuit = $card->getSuitConverted();
       $totSuits = $totSuits + $card->getSuitConverted();
+      $totDenominations = $totDenominations + $card->getDenominationConverted();
 
       array_push($tmp, $card->getDenominationConverted());
     }
@@ -184,6 +216,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::STRAIGHT_FLUSH + $totDenominations);
 
     $this->setHandScore(Ranking::STRAIGHT_FLUSH);
 
@@ -216,12 +250,16 @@ class Ranking
     $denominationPoker = array_search(4, $countValues);
 
     $tmp = array();
+    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
       if($card->getDenominationConverted() != $denominationPoker)
       {
         continue;
       }
+
+      $totDenominations = $totDenominations + $card->getDenominationConverted();
+
       array_push($tmp, $card->getSuitConverted());
     }
 
@@ -234,6 +272,8 @@ class Ranking
         return 0;
       }
     }
+
+    $this->setHandSpecificScore(Ranking::FOUR_OF_A_KIND + $totDenominations);
 
     $this->setHandScore(Ranking::FOUR_OF_A_KIND);
 
@@ -262,13 +302,18 @@ class Ranking
       return 0;
     }
 
+    $totDenominations = 0;
     foreach($countValues as $occurrence)
     {
       if($occurrence != 2 && $occurrence != 3)
       {
         return 0;
       }
+
+       $totDenominations = $totDenominations + $card->getDenominationConverted();
     }
+
+    $this->setHandSpecificScore(Ranking::FULL_HOUSE + $totDenominations);
 
     $this->setHandScore(Ranking::FULL_HOUSE);
 
@@ -282,9 +327,12 @@ class Ranking
   public function isFlush() : int
   {
     $tmp = array();
+    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
-      array_push($tmp, $card->getSuitConverted());
+        $totDenominations = $totDenominations + $card->getDenominationConverted();
+
+        array_push($tmp, $card->getSuitConverted());
     }
 
     $countValues = array_count_values($tmp);
@@ -293,6 +341,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::FLUSH + $totDenominations);
 
     $this->setHandScore(Ranking::FLUSH);
 
@@ -306,9 +356,12 @@ class Ranking
   public function isStraight() : int
   {
     $tmp = array();
+    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
-      array_push($tmp, $card->getDenominationConverted());
+        $totDenominations = $totDenominations + $card->getDenominationConverted();
+
+        array_push($tmp, $card->getDenominationConverted());
     }
 
     // Check the progression
@@ -318,6 +371,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::STRAIGHT + $totDenominations);
 
     $this->setHandScore(Ranking::STRAIGHT);
 
@@ -331,9 +386,12 @@ class Ranking
   public function isThreeOfAKind() : int
   {
     $tmp = array();
+    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
-      array_push($tmp, $card->getDenominationConverted());
+        $totDenominations = $totDenominations + $card->getDenominationConverted();
+
+        array_push($tmp, $card->getDenominationConverted());
     }
 
     // Check the progression
@@ -345,6 +403,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::THREE_OF_A_KIND + $totDenominations);
 
     $this->setHandScore(Ranking::THREE_OF_A_KIND);
 
@@ -360,7 +420,7 @@ class Ranking
     $tmp = array();
     foreach($this->getCards() as $card)
     {
-      array_push($tmp, $card->getDenominationConverted());
+        array_push($tmp, $card->getDenominationConverted());
     }
 
     // Check the progression
@@ -369,11 +429,14 @@ class Ranking
     $countValues = array_count_values($tmp);
 
     $pairEncountered = 0;
+    $totDenominations = 0;
     foreach($countValues as $countValue)
     {
       if(2 == $countValue)
       {
-        $pairEncountered++;
+          $totDenominations = $totDenominations + $card->getDenominationConverted();
+
+          $pairEncountered++;
       }
     }
 
@@ -381,6 +444,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::TWO_PAIR + $totDenominations);
 
     $this->setHandScore(Ranking::TWO_PAIR);
 
@@ -405,11 +470,14 @@ class Ranking
     $countValues = array_count_values($tmp);
 
     $pairEncountered = 0;
+    $totDenominations = 0;
     foreach($countValues as $countValue)
     {
       if(2 == $countValue)
       {
-        $pairEncountered++;
+          $totDenominations = $totDenominations + $card->getDenominationConverted();
+
+          $pairEncountered++;
       }
     }
 
@@ -417,6 +485,8 @@ class Ranking
     {
       return 0;
     }
+
+    $this->setHandSpecificScore(Ranking::PAIR + $totDenominations);
 
     $this->setHandScore(Ranking::PAIR);
 
@@ -429,8 +499,18 @@ class Ranking
    */
   public function isHighCard() : int
   {
-    $this->setHandScore(Ranking::HIGH_CARD);
+      $tmp = array();
+      foreach($this->getCards() as $card)
+      {
+        array_push($tmp, $card->getDenominationConverted());
+      }
 
-    return Ranking::HIGH_CARD;
+      sort($tmp);
+
+      $this->setHandSpecificScore(Ranking::HIGH_CARD + array_reverse($tmp)[0]);
+
+      $this->setHandScore(Ranking::HIGH_CARD);
+
+      return Ranking::HIGH_CARD;
   }
 }
