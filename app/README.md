@@ -68,5 +68,8 @@ $ranked = $handsRulesEngine->getSortedHands();
 9. Pair Two cards of the same rank.
 10. High Card When you haven't made any of the hands above, the highest card plays.
 
+### Change log
+* 2020-06-21 Implemented hands sorting on equal rank
+
 ### TODO
-* Sort hands that have equal rank
+* ...
