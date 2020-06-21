@@ -255,7 +255,7 @@ class Ranking
     {
       if($card->getDenominationConverted() != $denominationPoker)
       {
-        continue;
+          continue;
       }
 
       $totDenominations = $totDenominations + $card->getDenominationConverted();
@@ -303,14 +303,14 @@ class Ranking
     }
 
     $totDenominations = 0;
-    foreach($countValues as $occurrence)
+    foreach($countValues as $key => $occurrence)
     {
       if($occurrence != 2 && $occurrence != 3)
       {
         return 0;
       }
 
-       $totDenominations = $totDenominations + $card->getDenominationConverted();
+       $totDenominations = $totDenominations + $key;
     }
 
     $this->setHandSpecificScore(Ranking::FULL_HOUSE + $totDenominations);
@@ -386,11 +386,8 @@ class Ranking
   public function isThreeOfAKind() : int
   {
     $tmp = array();
-    $totDenominations = 0;
     foreach($this->getCards() as $card)
     {
-        $totDenominations = $totDenominations + $card->getDenominationConverted();
-
         array_push($tmp, $card->getDenominationConverted());
     }
 
@@ -402,6 +399,15 @@ class Ranking
     if(!in_array(3, $countValues))
     {
       return 0;
+    }
+
+    $totDenominations = 0;
+    foreach($countValues as $key => $countValue)
+    {
+        if(3 == $countValue)
+        {
+            $totDenominations = $totDenominations + $key;
+        }
     }
 
     $this->setHandSpecificScore(Ranking::THREE_OF_A_KIND + $totDenominations);
@@ -430,14 +436,14 @@ class Ranking
 
     $pairEncountered = 0;
     $totDenominations = 0;
-    foreach($countValues as $countValue)
+    foreach($countValues as $key => $countValue)
     {
-      if(2 == $countValue)
-      {
-          $totDenominations = $totDenominations + $card->getDenominationConverted();
+        if(2 == $countValue)
+        {
+            $totDenominations = $totDenominations + $key;
 
-          $pairEncountered++;
-      }
+            $pairEncountered++;
+        }
     }
 
     if($pairEncountered != 2)
@@ -461,7 +467,7 @@ class Ranking
     $tmp = array();
     foreach($this->getCards() as $card)
     {
-      array_push($tmp, $card->getDenominationConverted());
+        array_push($tmp, $card->getDenominationConverted());
     }
 
     // Check the progression
@@ -471,14 +477,14 @@ class Ranking
 
     $pairEncountered = 0;
     $totDenominations = 0;
-    foreach($countValues as $countValue)
+    foreach($countValues as $key => $countValue)
     {
-      if(2 == $countValue)
-      {
-          $totDenominations = $totDenominations + $card->getDenominationConverted();
+        if(2 == $countValue)
+        {
+            $totDenominations = $totDenominations + $key;
 
-          $pairEncountered++;
-      }
+            $pairEncountered++;
+        }
     }
 
     if($pairEncountered != 1)
@@ -502,7 +508,7 @@ class Ranking
       $tmp = array();
       foreach($this->getCards() as $card)
       {
-        array_push($tmp, $card->getDenominationConverted());
+          array_push($tmp, $card->getDenominationConverted());
       }
 
       sort($tmp);
