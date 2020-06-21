@@ -14,3 +14,5 @@ docker-compose up -d
 docker exec -it texas-hold-em-engine-php /bin/bash
 composer install
 ```
+
+![Command Application](screenshot.png "Command Application")
