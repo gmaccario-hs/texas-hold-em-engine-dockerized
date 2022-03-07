@@ -14,10 +14,8 @@ class RoyalFlush extends BaseRanking implements iRanking
         $lastSuit = 0;
         $totSuits = 0;
         $totDenominations = 0;
-        foreach($cards as $card)
-        {
-            if($card->getDenominationConverted() < 9)
-            {
+        foreach ($cards as $card) {
+            if ($card->getDenominationConverted() < 9) {
                 return 0;
             }
 
@@ -27,8 +25,7 @@ class RoyalFlush extends BaseRanking implements iRanking
         }
 
         // Check same suits
-        if(!$this->isSameSuits($totSuits, $lastSuit))
-        {
+        if (!$this->isSameSuits($totSuits, $lastSuit)) {
             return 0;
         }
 

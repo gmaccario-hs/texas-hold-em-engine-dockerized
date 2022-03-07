@@ -12,8 +12,7 @@ class HighCard extends BaseRanking implements iRanking
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             array_push($tmp, $card->getDenominationConverted());
         }
 

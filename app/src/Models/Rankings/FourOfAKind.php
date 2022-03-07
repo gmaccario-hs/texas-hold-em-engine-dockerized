@@ -12,8 +12,7 @@ class FourOfAKind extends BaseRanking implements iRanking
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             array_push($tmp, $card->getDenominationConverted());
         }
 
@@ -22,8 +21,7 @@ class FourOfAKind extends BaseRanking implements iRanking
 
         $countValues = array_count_values($tmp);
 
-        if(!in_array(4, $countValues))
-        {
+        if (!in_array(4, $countValues)) {
             return 0;
         }
 
@@ -32,10 +30,8 @@ class FourOfAKind extends BaseRanking implements iRanking
 
         $tmp = array();
         $totDenominations = 0;
-        foreach($cards as $card)
-        {
-            if($card->getDenominationConverted() != $denominationPoker)
-            {
+        foreach ($cards as $card) {
+            if ($card->getDenominationConverted() != $denominationPoker) {
                 continue;
             }
 
@@ -46,10 +42,8 @@ class FourOfAKind extends BaseRanking implements iRanking
 
         $countValues = array_count_values($tmp);
 
-        foreach($countValues as $value)
-        {
-            if($value > 1)
-            {
+        foreach ($countValues as $value) {
+            if ($value > 1) {
                 return 0;
             }
         }

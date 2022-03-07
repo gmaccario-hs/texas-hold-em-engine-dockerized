@@ -15,10 +15,8 @@ class StraightFlush extends BaseRanking implements iRanking
         $totSuits = 0;
         $totDenominations = 0;
         $tmp = array();
-        foreach($cards as $card)
-        {
-            if($card->getDenominationConverted() > 9)
-            {
+        foreach ($cards as $card) {
+            if ($card->getDenominationConverted() > 9) {
                 return 0;
             }
 
@@ -32,14 +30,12 @@ class StraightFlush extends BaseRanking implements iRanking
         // Check the progression
         sort($tmp);
 
-        if(!$this->isProgression($tmp))
-        {
+        if (!$this->isProgression($tmp)) {
             return 0;
         }
 
         // Check same suits
-        if(!$this->isSameSuits($totSuits, $lastSuit))
-        {
+        if (!$this->isSameSuits($totSuits, $lastSuit)) {
             return 0;
         }
 

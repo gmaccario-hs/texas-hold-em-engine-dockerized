@@ -12,8 +12,7 @@ class FullHouse extends BaseRanking implements iRanking
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             array_push($tmp, $card->getDenominationConverted());
         }
 
@@ -22,16 +21,13 @@ class FullHouse extends BaseRanking implements iRanking
 
         $countValues = array_count_values($tmp);
 
-        if(count($countValues) != 2)
-        {
+        if (count($countValues) != 2) {
             return 0;
         }
 
         $totDenominations = 0;
-        foreach($countValues as $key => $occurrence)
-        {
-            if($occurrence != 2 && $occurrence != 3)
-            {
+        foreach ($countValues as $key => $occurrence) {
+            if ($occurrence != 2 && $occurrence != 3) {
                 return 0;
             }
 

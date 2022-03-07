@@ -12,8 +12,7 @@ class ThreeOfAKind extends BaseRanking implements iRanking
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             array_push($tmp, $card->getDenominationConverted());
         }
 
@@ -22,16 +21,13 @@ class ThreeOfAKind extends BaseRanking implements iRanking
 
         $countValues = array_count_values($tmp);
 
-        if(!in_array(3, $countValues))
-        {
+        if (!in_array(3, $countValues)) {
             return 0;
         }
 
         $totDenominations = 0;
-        foreach($countValues as $key => $countValue)
-        {
-            if(3 == $countValue)
-            {
+        foreach ($countValues as $key => $countValue) {
+            if (3 == $countValue) {
                 $totDenominations = $totDenominations + $key;
             }
         }

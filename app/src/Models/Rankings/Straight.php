@@ -13,8 +13,7 @@ class Straight extends BaseRanking implements iRanking
     {
         $tmp = array();
         $totDenominations = 0;
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             $totDenominations = $totDenominations + $card->getDenominationConverted();
 
             array_push($tmp, $card->getDenominationConverted());
@@ -23,8 +22,7 @@ class Straight extends BaseRanking implements iRanking
         // Check the progression
         sort($tmp);
 
-        if(!$this->isProgression($tmp))
-        {
+        if (!$this->isProgression($tmp)) {
             return 0;
         }
 

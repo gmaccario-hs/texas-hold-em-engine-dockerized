@@ -12,8 +12,7 @@ class Pair extends BaseRanking implements iRanking
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        foreach($cards as $card)
-        {
+        foreach ($cards as $card) {
             array_push($tmp, $card->getDenominationConverted());
         }
 
@@ -24,18 +23,15 @@ class Pair extends BaseRanking implements iRanking
 
         $pairEncountered = 0;
         $totDenominations = 0;
-        foreach($countValues as $key => $countValue)
-        {
-            if(2 == $countValue)
-            {
+        foreach ($countValues as $key => $countValue) {
+            if (2 == $countValue) {
                 $totDenominations = $totDenominations + $key;
 
                 $pairEncountered++;
             }
         }
 
-        if($pairEncountered != 1)
-        {
+        if ($pairEncountered != 1) {
             return 0;
         }
 
