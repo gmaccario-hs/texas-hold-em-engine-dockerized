@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use TexasHoldem\Engine\Ranking;
-use TexasHoldem\Entity\Card;
-use TexasHoldem\Entity\Hand;
+use TexasHoldem\Models\Card;
+use TexasHoldem\Models\Hand;
 
 final class RankingTest extends TestCase
 {
@@ -13,7 +13,7 @@ final class RankingTest extends TestCase
     {
         $class = new Ranking();
 
-        $this->assertInstanceOf(Ranking::class, $class, "Ranking is not a Ranking Class");
+        $this->assertInstanceOf(Ranking::class, $class, "Hand is not a Hand Class");
     }
 
     public function testIsRoyalFlush() : void

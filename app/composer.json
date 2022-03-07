@@ -18,8 +18,10 @@
             "TexasHoldem\\": "src/",
             "TexasHoldem\\Service\\": "src/Service/",
             "TexasHoldem\\Command\\": "src/Command/",
-            "TexasHoldem\\Entity\\": "src/Entity/",
-            "TexasHoldem\\Validation\\": "src/Validation/"
+            "TexasHoldem\\Model\\": "src/Models/",
+            "TexasHoldem\\Models\\Rankings\\": "src/Models/Rankings",
+            "TexasHoldem\\Validation\\": "src/Validation/",
+            "TexasHoldem\\Interfaces\\" : "src/Interfaces/"
         }
     }
 }

@@ -10,6 +10,7 @@ Author URI: giuseppemaccario.com
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use TexasHoldem\Models\Rankings;
 use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\Ranking;
 use TexasHoldem\Engine\HandsRulesEngine;
@@ -27,6 +28,23 @@ $ranking = new Ranking();
 $handsRulesEngine = new HandsRulesEngine($ranking);
 $handsRulesEngine->setHands($originalHands);
 
-$ranked = $handsRulesEngine->getSortedHands();
+
+$rankings = array(
+    new Rankings\RoyalFlush(),
+    new Rankings\StraightFlush(),
+    new Rankings\FourOfAKind(),
+    new Rankings\FullHouse(),
+    new Rankings\Flush(),
+    new Rankings\Straight(),
+    new Rankings\ThreeOfAKind(),
+    new Rankings\TwoPair(),
+    new Rankings\Pair(),
+    new Rankings\HighCard(),
+    new Rankings\EmptyHand(),
+);
+
+
+
+$ranked = $handsRulesEngine->getSortedHands($rankings);
 
 dump("Poker Hands Rankings - from highest to lowest", $ranked);

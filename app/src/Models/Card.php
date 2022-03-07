@@ -1,6 +1,6 @@
 <?php
 
-namespace TexasHoldem\Entity;
+namespace TexasHoldem\Models;
 
 class Card
 {

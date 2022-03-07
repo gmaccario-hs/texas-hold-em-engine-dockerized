@@ -70,6 +70,13 @@ $ranked = $handsRulesEngine->getSortedHands();
 
 ### Change log
 * 2020-06-21 Implemented hands sorting on equal rank
+* 2022-03-.. Implemented feedback for better software: applied Ranking strategy
 
 ### TODO
+* No separation of concerns
+* File loader (in his example) does not apply tell dont ask principle
+* Models are open
+* His logic is one big if statement, could have applied strategies and chain them for the outcome
+* ...
+* Replace array with collection
 * ...

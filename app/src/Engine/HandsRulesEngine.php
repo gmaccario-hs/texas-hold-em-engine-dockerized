@@ -2,8 +2,8 @@
 
 namespace TexasHoldem\Engine;
 
-use TexasHoldem\Entity\Card;
-use TexasHoldem\Entity\Hand;
+use TexasHoldem\Models\Card;
+use TexasHoldem\Models\Hand;
 use TexasHoldem\Engine\Ranking;
 
 class HandsRulesEngine
@@ -20,10 +20,6 @@ class HandsRulesEngine
     $this->ranking = $ranking;
   }
 
-  /**
-   *
-   * @return array
-   */
   public function getHands() : array
   {
     return $this->hands;
@@ -51,84 +47,50 @@ class HandsRulesEngine
     }
   }
 
-  /**
-   *
-   * @return array
-   */
-  public function getSortedHands() : array
+  public function getSortedHands(array $rankings) : array
   {
-    return $this->evaluate();
+    return $this->evaluate($rankings);
   }
 
-  /**
-   * @param string $method
-   * @param array  $args
-   *
-   * @return array
-   */
-  protected function evaluate() : array
+  protected function evaluate(array $rankings) : array
   {
     $sorted = array();
 
     foreach($this->hands as $hand)
     {
-      $this->ranking->setHand($hand);
+        $this->ranking->setHand($hand);
 
-      if($this->ranking->isRoyalFlush() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand; // @todo Use it as an index for inner array $hand->getSpecificScore()
-      }
-      else if($this->ranking->isStraightFlush() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isFourOfAKind() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isFullHouse() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isFlush() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isStraight() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isThreeOfAKind() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isTwoPair() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isPair() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else if($this->ranking->isHighCard() > 0)
-      {
-        $sorted[$hand->getScore()][] = $hand;
-      }
-      else {
-        $sorted[0] = $hand;
-      }
+        foreach ($rankings as $ranking)
+        {
+            //$index = $hand->getScore();
+
+            $rank = $ranking->calculateRanking($hand->getCards());
+
+            dump($rank);
+
+            //$this->ranking->setHandSpecificScore($rank + $totDenominations);
+
+            $this->ranking->setHandScore($rank);
+
+            $sorted[$rank][] = $hand;
+        }
     }
 
+    return $this->reverseSorted($sorted);
+  }
+
+  private function reverseSorted(array $sorted) : array
+  {
     ksort($sorted);
 
     // Sorting Nested Array (same value hands)
     foreach($sorted as $key => $sameHandsUnsorted)
     {
-        $sameHandsUnsorted = $this->ranking->compareSameHands($sameHandsUnsorted);
+      $sameHandsUnsorted = $this->ranking->compareSameHands($sameHandsUnsorted);
 
-        unset($sorted[$key]);
+      unset($sorted[$key]);
 
-        $sorted[$key] = $sameHandsUnsorted;
+      $sorted[$key] = $sameHandsUnsorted;
     }
 
     return array_reverse($sorted, true);

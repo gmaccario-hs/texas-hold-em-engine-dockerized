@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use TexasHoldem\Entity\Hand;
+use TexasHoldem\Models\Hand;
 use TexasHoldem\Engine\Ranking;
 use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\HandsRulesEngine;
