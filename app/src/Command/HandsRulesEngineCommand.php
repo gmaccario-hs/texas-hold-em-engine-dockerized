@@ -2,13 +2,14 @@
 
 namespace TexasHoldem\Command;
 
+use TexasHoldem\Service\FileParser;
+use TexasHoldem\Models\Rankings;
+use TexasHoldem\Engine\HandsEngine;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LockableTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TexasHoldem\Engine\HandsEngine;
-use TexasHoldem\Service\FileParser;
 
 class HandsRulesEngineCommand extends Command
 {
@@ -62,11 +63,27 @@ class HandsRulesEngineCommand extends Command
 
         $this->handsRulesEngine->setHands($originalHands);
 
-        $ranked = $this->handsRulesEngine->getSortedHands();
+        $ranked = $this->handsRulesEngine->getSortedHands($this->getRankings());
 
         $this->printSortedHands($output, $ranked, 'Sorted');
 
         return 0;
+    }
+
+    private function getRankings(): array
+    {
+        return array(
+            new Rankings\RoyalFlush(),
+            new Rankings\StraightFlush(),
+            new Rankings\FourOfAKind(),
+            new Rankings\FullHouse(),
+            new Rankings\Flush(),
+            new Rankings\Straight(),
+            new Rankings\ThreeOfAKind(),
+            new Rankings\TwoPair(),
+            new Rankings\Pair(),
+            new Rankings\HighCard(),
+        );
     }
 
     private function printInfo(OutputInterface $output)
