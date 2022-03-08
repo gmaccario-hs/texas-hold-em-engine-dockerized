@@ -16,11 +16,9 @@ php ./console.php -V
 ```
 
 ### Texas Hold'em Engine Commands
-Run the command with the filename or the filepath as input of the command. Without a path, the application looks into "/var/www/html/data/" folder (default path with a test input file), otherwise the file will be opened from the original location.
+Run the command with the filename or the filepath as input of the command. 
 ```
 php ./console.php app:hands-validation inputfile.txt
-php ./console.php app:hands-validation /var/www/html/data/inputfile.txt
-php ./console.php app:hands-validation /tmp/inputfile.txt
 ```
 
 ### PHPUnit
@@ -91,6 +89,5 @@ dump("Poker Hands Rankings - from highest to lowest", $ranked);
 
 ### TODO
 * No separation of concerns
-* File loader (in his example) does not apply tell dont ask principle
 * Replace array with collection
 * ...
