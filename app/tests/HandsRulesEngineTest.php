@@ -3,19 +3,19 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use TexasHoldem\Entity\Hand;
+use TexasHoldem\Models\Hand;
 use TexasHoldem\Engine\Ranking;
 use TexasHoldem\Service\FileParser;
-use TexasHoldem\Engine\HandsRulesEngine;
+use TexasHoldem\Engine\HandsEngine;
 
 final class HandsRulesEngineTest extends TestCase
 {
     public function testHandsRulesEngineClassExists() : void
     {
         $ranking = new Ranking();
-        $class = new HandsRulesEngine($ranking);
+        $class = new HandsEngine($ranking);
 
-        $this->assertInstanceOf(HandsRulesEngine::class, $class, "HandsRulesEngine is not a HandsRulesEngine Class");
+        $this->assertInstanceOf(HandsEngine::class, $class, "HandsEngine is not a HandsEngine Class");
     }
 
     public function testSetHands() : void
@@ -24,7 +24,7 @@ final class HandsRulesEngineTest extends TestCase
 
         $fileParser = new FileParser();
         $ranking = new Ranking();
-        $handsRulesEngine = new HandsRulesEngine($ranking);
+        $handsRulesEngine = new HandsEngine($ranking);
 
         $fileParser->setFileName($fileName);
 
@@ -45,7 +45,7 @@ final class HandsRulesEngineTest extends TestCase
 
         $fileParser = new FileParser();
         $ranking = new Ranking();
-        $handsRulesEngine = new HandsRulesEngine($ranking);
+        $handsRulesEngine = new HandsEngine($ranking);
 
         $fileParser->setFileName($fileName);
 

@@ -70,6 +70,10 @@ $ranked = $handsRulesEngine->getSortedHands();
 
 ### Change log
 * 2020-06-21 Implemented hands sorting on equal rank
+* 2022-03-08 Implemented feedback for better software: removed big if statement, clean up code, and implemented interfaces
 
 ### TODO
+* No separation of concerns
+* File loader (in his example) does not apply tell dont ask principle
+* Replace array with collection
 * ...
