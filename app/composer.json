@@ -16,7 +16,6 @@
     "autoload": {
         "psr-4": {
             "TexasHoldem\\": "src/",
-            "TexasHoldem\\Service\\": "src/Service/",
             "TexasHoldem\\Command\\": "src/Command/",
             "TexasHoldem\\Model\\": "src/Models/",
             "TexasHoldem\\Models\\Rankings\\": "src/Models/Rankings",

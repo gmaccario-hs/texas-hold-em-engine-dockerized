@@ -2,9 +2,9 @@
 
 namespace TexasHoldem\Command;
 
-use TexasHoldem\Service\FileParser;
 use TexasHoldem\Models\Rankings;
 use TexasHoldem\Engine\HandsEngine;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LockableTrait;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,16 +16,14 @@ class HandsEngineCommand extends Command
     use LockableTrait;
 
     protected static $defaultName = 'app:hands-validation';
-    private $fileParser;
 
     // the name of the command (the part after "bin/console")
     private $handsRulesEngine;
 
-    public function __construct(FileParser $fileParser, HandsEngine $handsRulesEngine)
+    public function __construct(HandsEngine $handsRulesEngine)
     {
         parent::__construct();
 
-        $this->fileParser = $fileParser;
         $this->handsRulesEngine = $handsRulesEngine;
     }
 
@@ -53,11 +51,15 @@ class HandsEngineCommand extends Command
 
         $this->printInfo($output);
 
-        $fileName = $input->getArgument('filename');
+        $fileName = getcwd() . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $input->getArgument('filename');
 
-        $this->fileParser->setFileName($fileName);
-
-        $originalHands = $this->fileParser->parseFile();
+        $filesystem = new Filesystem();
+        if ($filesystem->exists($fileName)) {
+            $originalHands = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        else {
+            throw new \Exception('File not found.');
+        }
 
         $this->printInputHands($output, $originalHands, 'Unsorted');
 

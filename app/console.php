@@ -20,11 +20,11 @@ $appName = php_sapi_name() == 'cli' ? 'console' : 'http';
 
 if ($appName == 'console') {
     $app = new Application();
-    $app->add(new HandsEngineCommand(new FileParser(), new HandsEngine()));
+    $app->add(new HandsEngineCommand(new HandsEngine()));
 
     try {
         $app->run();
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         dump($e->getMessage());
     }
 }

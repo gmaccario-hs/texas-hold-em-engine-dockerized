@@ -11,15 +11,18 @@ Author URI: giuseppemaccario.com
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 use TexasHoldem\Models\Rankings;
-use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\HandsEngine;
+use Symfony\Component\Filesystem\Filesystem;
 
 $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
-$fileParser = new FileParser();
-$fileParser->setFileName($fileName);
-
-$originalHands = $fileParser->parseFile();
+$filesystem = new Filesystem();
+if ($filesystem->exists($fileName)) {
+    $originalHands = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+else {
+    throw new \Exception('File not found.');
+}
 
 dump("Original Hands", $originalHands);
 
