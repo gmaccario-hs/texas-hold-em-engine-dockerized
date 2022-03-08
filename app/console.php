@@ -14,7 +14,6 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autolo
 use Symfony\Component\Console\Application;
 use TexasHoldem\Command\HandsEngineCommand;
 use TexasHoldem\Engine\HandsEngine;
-use TexasHoldem\Service\FileParser;
 
 $appName = php_sapi_name() == 'cli' ? 'console' : 'http';
 
