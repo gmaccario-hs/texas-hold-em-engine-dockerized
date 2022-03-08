@@ -7,6 +7,7 @@ use TexasHoldem\Models\Hand;
 use TexasHoldem\Models\Rankings;
 use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\HandsEngine;
+use Symfony\Component\Filesystem\Filesystem;
 
 final class HandsEngineTest extends TestCase
 {
@@ -21,12 +22,15 @@ final class HandsEngineTest extends TestCase
     {
         $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
-        $fileParser = new FileParser();
+        $filesystem = new Filesystem();
+        if ($filesystem->exists($fileName)) {
+            $originalHands = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        else {
+            throw new \Exception('File not found.');
+        }
+
         $handsRulesEngine = new HandsEngine();
-
-        $fileParser->setFileName($fileName);
-
-        $originalHands = $fileParser->parseFile();
 
         $handsRulesEngine->setHands($originalHands);
 
@@ -54,12 +58,15 @@ final class HandsEngineTest extends TestCase
 
         $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
-        $fileParser = new FileParser();
+        $filesystem = new Filesystem();
+        if ($filesystem->exists($fileName)) {
+            $originalHands = file($fileName, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        else {
+            throw new \Exception('File not found.');
+        }
+
         $handsRulesEngine = new HandsEngine();
-
-        $fileParser->setFileName($fileName);
-
-        $originalHands = $fileParser->parseFile();
 
         $handsRulesEngine->setHands($originalHands);
 
