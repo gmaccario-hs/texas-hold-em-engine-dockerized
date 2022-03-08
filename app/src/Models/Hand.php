@@ -6,26 +6,24 @@ use TexasHoldem\Interfaces\iHand;
 
 class Hand implements iHand
 {
-    protected $rank = 0;
+    protected $originalIndex = 0;
     protected $score = 0;
     protected $scoreName = "";
     protected $specificScore = 0;
     protected $cards = array();
 
+    public function getOriginalIndex(): int
+    {
+        return $this->originalIndex;
+    }
+
     /**
-     *
-     * @param int $rank
      *
      * @return void
      */
-    public function __construct(int $rank)
+    public function setOriginalIndex(int $originalIndex)
     {
-        $this->rank = $rank;
-    }
-
-    public function getRank(): int
-    {
-        return $this->rank;
+        $this->originalIndex = $originalIndex;
     }
 
     public function getCards(): array
@@ -33,6 +31,10 @@ class Hand implements iHand
         return $this->cards;
     }
 
+    /**
+     *
+     * @return void
+     */
     public function setCards(array $cards)
     {
         return $this->cards = $cards;
@@ -48,6 +50,10 @@ class Hand implements iHand
         return $this->score;
     }
 
+    /**
+     *
+     * @return void
+     */
     public function setScore(int $score)
     {
         return $this->score = $score;
@@ -58,6 +64,10 @@ class Hand implements iHand
         return $this->scoreName;
     }
 
+    /**
+     *
+     * @return void
+     */
     public function setScoreName(string $scoreName)
     {
         return $this->scoreName = $scoreName;
@@ -68,6 +78,10 @@ class Hand implements iHand
         return $this->specificScore;
     }
 
+    /**
+     *
+     * @return void
+     */
     public function setSpecificScore(int $specificScore)
     {
         return $this->specificScore = $specificScore;

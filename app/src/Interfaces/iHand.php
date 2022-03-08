@@ -6,7 +6,9 @@ use TexasHoldem\Models\Card;
 
 interface iHand
 {
-    public function getRank(): int;
+    public function getOriginalIndex(): int;
+
+    public function setOriginalIndex(int $originalIndex);
 
     public function getCards(): array;
 

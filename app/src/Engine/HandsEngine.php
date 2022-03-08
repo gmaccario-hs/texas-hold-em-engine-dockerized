@@ -27,7 +27,9 @@ class HandsEngine
     public function setHands(array $hands)
     {
         foreach ($hands as $index => $hand) {
-            $entityHand = new Hand($index);
+            $entityHand = new Hand();
+
+            $entityHand->setOriginalIndex($index);
 
             // i.e. 10♥ 10♦ 10♠ 9♣ 9♦
             $cards = explode(" ", $hand);
@@ -52,17 +54,17 @@ class HandsEngine
         foreach ($this->hands as $hand) {
             foreach ($rankings as $ranking) {
 
-                $rank = $ranking->calculateRanking($hand->getCards());
+                $score = $ranking->calculateRanking($hand->getCards());
 
                 //dump($rank);
                 //dump($ranking->getRankName());
 
                 $hand->setSpecificScore($ranking->getDenominations());
-                $hand->setScore($rank);
+                $hand->setScore($score);
                 $hand->setScoreName($ranking->getRankName());
 
-                if ($rank) {
-                    $sorted[$rank][] = $hand;
+                if ($score) {
+                    $sorted[$score][] = $hand;
                     break;
                 }
             }
