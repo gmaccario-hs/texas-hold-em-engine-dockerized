@@ -27,7 +27,6 @@ php ./console.php app:hands-validation /tmp/inputfile.txt
 ```
 php ./vendor/bin/phpunit --version
 php ./vendor/bin/phpunit tests/
-php ./vendor/bin/phpunit tests/FileParserTest.php
 php ./vendor/bin/phpunit tests/HandsEngineTest.php
 ```
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use TexasHoldem\Models\Hand;
 use TexasHoldem\Models\Rankings;
-use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\HandsEngine;
 use Symfony\Component\Filesystem\Filesystem;
 
