@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use TexasHoldem\Models\Hand;
-use TexasHoldem\Engine\Ranking;
+use TexasHoldem\Models\Rankings;
 use TexasHoldem\Service\FileParser;
 use TexasHoldem\Engine\HandsEngine;
 
-final class HandsRulesEngineTest extends TestCase
+final class HandsEngineTest extends TestCase
 {
     public function testHandsRulesEngineClassExists() : void
     {
-        $ranking = new Ranking();
-        $class = new HandsEngine($ranking);
+        $class = new HandsEngine();
 
         $this->assertInstanceOf(HandsEngine::class, $class, "HandsEngine is not a HandsEngine Class");
     }
@@ -23,8 +22,7 @@ final class HandsRulesEngineTest extends TestCase
         $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
         $fileParser = new FileParser();
-        $ranking = new Ranking();
-        $handsRulesEngine = new HandsEngine($ranking);
+        $handsRulesEngine = new HandsEngine();
 
         $fileParser->setFileName($fileName);
 
@@ -41,11 +39,23 @@ final class HandsRulesEngineTest extends TestCase
 
     public function testGetSortedHands() : void
     {
+        $rankings = array(
+            new Rankings\RoyalFlush(),
+            new Rankings\StraightFlush(),
+            new Rankings\FourOfAKind(),
+            new Rankings\FullHouse(),
+            new Rankings\Flush(),
+            new Rankings\Straight(),
+            new Rankings\ThreeOfAKind(),
+            new Rankings\TwoPair(),
+            new Rankings\Pair(),
+            new Rankings\HighCard(),
+        );
+
         $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
         $fileParser = new FileParser();
-        $ranking = new Ranking();
-        $handsRulesEngine = new HandsEngine($ranking);
+        $handsRulesEngine = new HandsEngine();
 
         $fileParser->setFileName($fileName);
 
@@ -53,12 +63,12 @@ final class HandsRulesEngineTest extends TestCase
 
         $handsRulesEngine->setHands($originalHands);
 
-        $ranked = $handsRulesEngine->getSortedHands();
+        $ranked = $handsRulesEngine->getSortedHands($rankings);
 
         $countRanked = 0;
         foreach($ranked as $index => $hand)
         {
-          $countRanked = $countRanked + count($hand);
+            $countRanked = $countRanked + count($hand);
         }
 
         $this->assertIsArray($ranked);
