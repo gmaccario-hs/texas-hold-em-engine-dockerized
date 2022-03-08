@@ -9,6 +9,16 @@ class Pair extends BaseRanking implements iRanking
     protected const RANK = 200;
     protected const RANK_NAME = "Pair";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
@@ -22,10 +32,9 @@ class Pair extends BaseRanking implements iRanking
         $countValues = array_count_values($tmp);
 
         $pairEncountered = 0;
-        $totDenominations = 0;
         foreach ($countValues as $key => $countValue) {
             if (2 == $countValue) {
-                $totDenominations = $totDenominations + $key;
+                $this->denomination = $this->denomination + $key;
 
                 $pairEncountered++;
             }

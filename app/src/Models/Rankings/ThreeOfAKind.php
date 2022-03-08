@@ -9,6 +9,16 @@ class ThreeOfAKind extends BaseRanking implements iRanking
     protected const RANK = 400;
     protected const RANK_NAME = "Three of a kind";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
@@ -25,10 +35,9 @@ class ThreeOfAKind extends BaseRanking implements iRanking
             return 0;
         }
 
-        $totDenominations = 0;
         foreach ($countValues as $key => $countValue) {
             if (3 == $countValue) {
-                $totDenominations = $totDenominations + $key;
+                $this->denomination = $this->denomination + $key;
             }
         }
 

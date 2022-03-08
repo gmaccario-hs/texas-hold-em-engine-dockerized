@@ -12,8 +12,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autolo
 
 use TexasHoldem\Models\Rankings;
 use TexasHoldem\Service\FileParser;
-use TexasHoldem\Engine\Ranking;
-use TexasHoldem\Engine\HandsRulesEngine;
+use TexasHoldem\Engine\HandsEngine;
 
 $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
@@ -23,11 +22,6 @@ $fileParser->setFileName($fileName);
 $originalHands = $fileParser->parseFile();
 
 dump("Original Hands", $originalHands);
-
-$ranking = new Ranking();
-$handsRulesEngine = new HandsRulesEngine($ranking);
-$handsRulesEngine->setHands($originalHands);
-
 
 $rankings = array(
     new Rankings\RoyalFlush(),
@@ -43,8 +37,8 @@ $rankings = array(
     new Rankings\EmptyHand(),
 );
 
-
-
+$handsRulesEngine = new HandsEngine();
+$handsRulesEngine->setHands($originalHands);
 $ranked = $handsRulesEngine->getSortedHands($rankings);
 
 dump("Poker Hands Rankings - from highest to lowest", $ranked);

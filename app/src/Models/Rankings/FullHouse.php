@@ -9,6 +9,16 @@ class FullHouse extends BaseRanking implements iRanking
     protected const RANK = 700;
     protected const RANK_NAME = "Full house";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
@@ -25,13 +35,12 @@ class FullHouse extends BaseRanking implements iRanking
             return 0;
         }
 
-        $totDenominations = 0;
         foreach ($countValues as $key => $occurrence) {
             if ($occurrence != 2 && $occurrence != 3) {
                 return 0;
             }
 
-            $totDenominations = $totDenominations + $key;
+            $this->denomination = $this->denomination + $key;
         }
 
         //$this->setHandSpecificScore(Ranking::FULL_HOUSE + $totDenominations);

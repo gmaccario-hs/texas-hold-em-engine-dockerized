@@ -9,11 +9,20 @@ class RoyalFlush extends BaseRanking implements iRanking
     protected const RANK = 1000;
     protected const RANK_NAME = "Royal flush";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $lastSuit = 0;
         $totSuits = 0;
-        $totDenominations = 0;
         foreach ($cards as $card) {
             if ($card->getDenominationConverted() < 9) {
                 return 0;
@@ -21,7 +30,7 @@ class RoyalFlush extends BaseRanking implements iRanking
 
             $lastSuit = $card->getSuitConverted();
             $totSuits = $totSuits + $card->getSuitConverted();
-            $totDenominations = $totDenominations + $card->getDenominationConverted();
+            $this->denomination = $this->denomination + $card->getDenominationConverted();
         }
 
         // Check same suits

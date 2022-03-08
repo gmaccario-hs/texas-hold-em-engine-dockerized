@@ -7,6 +7,8 @@ class BaseRanking
     protected const RANK = 0;
     protected const RANK_NAME = "";
 
+    protected $denomination = 0;
+
     protected function isProgression(array $array): bool
     {
         $count = count($array) - 1;

@@ -7,7 +7,7 @@ use Symfony\Component\Console\Command\LockableTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TexasHoldem\Engine\HandsRulesEngine;
+use TexasHoldem\Engine\HandsEngine;
 use TexasHoldem\Service\FileParser;
 
 class HandsRulesEngineCommand extends Command
@@ -20,7 +20,7 @@ class HandsRulesEngineCommand extends Command
     // the name of the command (the part after "bin/console")
     private $handsRulesEngine;
 
-    public function __construct(FileParser $fileParser, HandsRulesEngine $handsRulesEngine)
+    public function __construct(FileParser $fileParser, HandsEngine $handsRulesEngine)
     {
         parent::__construct();
 

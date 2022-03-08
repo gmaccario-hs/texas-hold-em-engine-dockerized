@@ -9,11 +9,20 @@ class StraightFlush extends BaseRanking implements iRanking
     protected const RANK = 900;
     protected const RANK_NAME = "Straight flush";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $lastSuit = 0;
         $totSuits = 0;
-        $totDenominations = 0;
         $tmp = array();
         foreach ($cards as $card) {
             if ($card->getDenominationConverted() > 9) {
@@ -22,7 +31,7 @@ class StraightFlush extends BaseRanking implements iRanking
 
             $lastSuit = $card->getSuitConverted();
             $totSuits = $totSuits + $card->getSuitConverted();
-            $totDenominations = $totDenominations + $card->getDenominationConverted();
+            $this->denomination = $this->denomination + $card->getDenominationConverted();
 
             array_push($tmp, $card->getDenominationConverted());
         }

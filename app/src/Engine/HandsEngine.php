@@ -5,19 +5,15 @@ namespace TexasHoldem\Engine;
 use TexasHoldem\Models\Card;
 use TexasHoldem\Models\Hand;
 
-class HandsRulesEngine
+class HandsEngine
 {
-    protected $ranking;
     protected $hands = array();
 
     /**
      *
      * @return void
      */
-    public function __construct(Ranking $ranking)
-    {
-        $this->ranking = $ranking;
-    }
+    //public function __construct(){}
 
     public function getHands(): array
     {
@@ -46,28 +42,29 @@ class HandsRulesEngine
 
     public function getSortedHands(array $rankings): array
     {
-        return $this->evaluate($rankings);
+        return $this->evaluateHands($rankings);
     }
 
-    private function evaluate(array $rankings): array
+    private function evaluateHands(array $rankings): array
     {
         $sorted = array();
 
         foreach ($this->hands as $hand) {
-            $this->ranking->setHand($hand);
-
             foreach ($rankings as $ranking) {
-                //$index = $hand->getScore();
 
                 $rank = $ranking->calculateRanking($hand->getCards());
 
-                dump($rank);
+                //dump($rank);
+                //dump($ranking->getRankName());
 
-                //$this->ranking->setHandSpecificScore($rank + $totDenominations);
+                $hand->setSpecificScore($ranking->getDenominations());
+                $hand->setScore($rank);
+                $hand->setScoreName($ranking->getRankName());
 
-                $this->ranking->setHandScore($rank);
-
-                $sorted[$rank][] = $hand;
+                if ($rank) {
+                    $sorted[$rank][] = $hand;
+                    break;
+                }
             }
         }
 
@@ -80,7 +77,7 @@ class HandsRulesEngine
 
         // Sorting Nested Array (same value hands)
         foreach ($sorted as $key => $sameHandsUnsorted) {
-            $sameHandsUnsorted = $this->ranking->compareSameHands($sameHandsUnsorted);
+            $sameHandsUnsorted = $this->compareSameHands($sameHandsUnsorted);
 
             unset($sorted[$key]);
 
@@ -88,5 +85,18 @@ class HandsRulesEngine
         }
 
         return array_reverse($sorted, true);
+    }
+
+    /**
+     *
+     * @return void
+     */
+    private function compareSameHands(array $unsorted)
+    {
+        usort($unsorted, function ($handA, $handB) {
+            return $handB->getSpecificScore() - $handA->getSpecificScore();
+        });
+
+        return $unsorted;
     }
 }

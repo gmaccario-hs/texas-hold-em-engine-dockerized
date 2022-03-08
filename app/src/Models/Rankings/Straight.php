@@ -9,12 +9,21 @@ class Straight extends BaseRanking implements iRanking
     protected const RANK = 500;
     protected const RANK_NAME = "Straight";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
-        $totDenominations = 0;
         foreach ($cards as $card) {
-            $totDenominations = $totDenominations + $card->getDenominationConverted();
+            $this->denomination = $this->denomination + $card->getDenominationConverted();
 
             array_push($tmp, $card->getDenominationConverted());
         }

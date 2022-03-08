@@ -9,6 +9,16 @@ class FourOfAKind extends BaseRanking implements iRanking
     protected const RANK = 800;
     protected const RANK_NAME = "Four of a kind";
 
+    public function getRankName(): string
+    {
+        return self::RANK_NAME;
+    }
+
+    public function getDenominations(): int
+    {
+        return self::RANK + $this->denomination;
+    }
+
     public function calculateRanking(array $cards): int
     {
         $tmp = array();
@@ -29,13 +39,12 @@ class FourOfAKind extends BaseRanking implements iRanking
         $denominationPoker = array_search(4, $countValues);
 
         $tmp = array();
-        $totDenominations = 0;
         foreach ($cards as $card) {
             if ($card->getDenominationConverted() != $denominationPoker) {
                 continue;
             }
 
-            $totDenominations = $totDenominations + $card->getDenominationConverted();
+            $this->denomination = $this->denomination + $card->getDenominationConverted();
 
             array_push($tmp, $card->getSuitConverted());
         }
