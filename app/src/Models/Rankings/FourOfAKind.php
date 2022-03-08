@@ -57,10 +57,6 @@ class FourOfAKind extends BaseRanking implements iRanking
             }
         }
 
-        //$this->setHandSpecificScore(Ranking::FOUR_OF_A_KIND + $totDenominations);
-
-        //$this->setHandScore(Ranking::FOUR_OF_A_KIND);
-
         return self::RANK;
     }
 }

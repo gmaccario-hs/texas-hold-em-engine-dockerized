@@ -43,11 +43,6 @@ class FullHouse extends BaseRanking implements iRanking
             $this->denomination = $this->denomination + $key;
         }
 
-        //$this->setHandSpecificScore(Ranking::FULL_HOUSE + $totDenominations);
-
-        //$this->setHandScore(Ranking::FULL_HOUSE);
-
-        //return Ranking::FULL_HOUSE;
         return self::RANK;
     }
 }

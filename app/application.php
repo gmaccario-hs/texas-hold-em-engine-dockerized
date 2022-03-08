@@ -34,7 +34,6 @@ $rankings = array(
     new Rankings\TwoPair(),
     new Rankings\Pair(),
     new Rankings\HighCard(),
-    new Rankings\EmptyHand(),
 );
 
 $handsRulesEngine = new HandsEngine();

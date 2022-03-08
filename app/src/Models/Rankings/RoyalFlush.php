@@ -38,10 +38,6 @@ class RoyalFlush extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::ROYAL_FLUSH + $totDenominations);
-
-        //$this->setHandScore(Ranking::ROYAL_FLUSH);
-
         return self::RANK;
     }
 }

@@ -20,7 +20,6 @@
             "TexasHoldem\\Command\\": "src/Command/",
             "TexasHoldem\\Model\\": "src/Models/",
             "TexasHoldem\\Models\\Rankings\\": "src/Models/Rankings",
-            "TexasHoldem\\Validation\\": "src/Validation/",
             "TexasHoldem\\Interfaces\\" : "src/Interfaces/"
         }
     }

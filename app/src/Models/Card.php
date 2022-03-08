@@ -2,7 +2,9 @@
 
 namespace TexasHoldem\Models;
 
-class Card
+use TexasHoldem\Interfaces\iCard;
+
+class Card implements iCard
 {
     protected $denomination;
     protected $suit;
@@ -57,8 +59,6 @@ class Card
 
     /**
      *
-     * @param string $denomination
-     *
      * @return void
      */
     public function setDenomination(string $denomination)
@@ -85,8 +85,6 @@ class Card
     }
 
     /**
-     *
-     * @param string $suit
      *
      * @return void
      */

@@ -48,10 +48,6 @@ class StraightFlush extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::STRAIGHT_FLUSH + $totDenominations);
-
-        //$this->setHandScore(Ranking::STRAIGHT_FLUSH);
-
         return self::RANK;
     }
 }

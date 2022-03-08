@@ -41,11 +41,6 @@ class ThreeOfAKind extends BaseRanking implements iRanking
             }
         }
 
-        //$this->setHandSpecificScore(Ranking::THREE_OF_A_KIND + $totDenominations);
-
-        //$this->setHandScore(Ranking::THREE_OF_A_KIND);
-
-        //return Ranking::THREE_OF_A_KIND;
         return self::RANK;
     }
 }

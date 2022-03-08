@@ -44,11 +44,6 @@ class Pair extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::PAIR + $totDenominations);
-
-        //$this->setHandScore(Ranking::PAIR);
-
-        //return Ranking::PAIR;
         return self::RANK;
     }
 }

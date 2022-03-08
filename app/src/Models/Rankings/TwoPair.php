@@ -44,11 +44,6 @@ class TwoPair extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::TWO_PAIR + $totDenominations);
-
-        //$this->setHandScore(Ranking::TWO_PAIR);
-
-        //return Ranking::TWO_PAIR;
         return self::RANK;
     }
 }

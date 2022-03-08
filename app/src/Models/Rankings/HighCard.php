@@ -28,11 +28,6 @@ class HighCard extends BaseRanking implements iRanking
 
         sort($tmp);
 
-        //$this->setHandSpecificScore(Ranking::HIGH_CARD + array_reverse($tmp)[0]);
-
-        //$this->setHandScore(Ranking::HIGH_CARD);
-
-        //return Ranking::HIGH_CARD;
         return self::RANK;
     }
 }

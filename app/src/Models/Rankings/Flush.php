@@ -34,11 +34,6 @@ class Flush extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::FLUSH + $totDenominations);
-
-        //$this->setHandScore(Ranking::FLUSH);
-
-        //return Ranking::FLUSH;
         return self::RANK;
     }
 }

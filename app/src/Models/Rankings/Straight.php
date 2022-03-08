@@ -35,11 +35,6 @@ class Straight extends BaseRanking implements iRanking
             return 0;
         }
 
-        //$this->setHandSpecificScore(Ranking::STRAIGHT + $totDenominations);
-
-        //$this->setHandScore(Ranking::STRAIGHT);
-
-        //return Ranking::STRAIGHT;
         return self::RANK;
     }
 }

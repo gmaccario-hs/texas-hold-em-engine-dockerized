@@ -9,12 +9,6 @@ class HandsEngine
 {
     protected $hands = array();
 
-    /**
-     *
-     * @return void
-     */
-    //public function __construct(){}
-
     public function getHands(): array
     {
         return $this->hands;
@@ -56,14 +50,11 @@ class HandsEngine
 
                 $score = $ranking->calculateRanking($hand->getCards());
 
-                //dump($rank);
-                //dump($ranking->getRankName());
-
-                $hand->setSpecificScore($ranking->getDenominations());
-                $hand->setScore($score);
-                $hand->setScoreName($ranking->getRankName());
-
                 if ($score) {
+                    $hand->setSpecificScore($ranking->getDenominations());
+                    $hand->setScore($score);
+                    $hand->setScoreName($ranking->getRankName());
+
                     $sorted[$score][] = $hand;
                     break;
                 }
