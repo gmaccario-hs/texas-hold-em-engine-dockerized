@@ -38,21 +38,37 @@ php ./vendor/bin/phpunit tests/HandsEngineTest.php
 ```
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
+use TexasHoldem\Models\Rankings;
 use TexasHoldem\Service\FileParser;
-use TexasHoldem\Engine\Ranking;
-use TexasHoldem\Engine\HandsRulesEngine;
+use TexasHoldem\Engine\HandsEngine;
 
 $fileName = 'data' . DIRECTORY_SEPARATOR . 'inputfile.txt';
 
 $fileParser = new FileParser();
 $fileParser->setFileName($fileName);
+
 $originalHands = $fileParser->parseFile();
 
-$ranking = new Ranking();
-$handsRulesEngine = new HandsRulesEngine($ranking);
-$handsRulesEngine->setHands($originalHands);
+dump("Original Hands", $originalHands);
 
-$ranked = $handsRulesEngine->getSortedHands();
+$rankings = array(
+    new Rankings\RoyalFlush(),
+    new Rankings\StraightFlush(),
+    new Rankings\FourOfAKind(),
+    new Rankings\FullHouse(),
+    new Rankings\Flush(),
+    new Rankings\Straight(),
+    new Rankings\ThreeOfAKind(),
+    new Rankings\TwoPair(),
+    new Rankings\Pair(),
+    new Rankings\HighCard(),
+);
+
+$handsRulesEngine = new HandsEngine();
+$handsRulesEngine->setHands($originalHands);
+$ranked = $handsRulesEngine->getSortedHands($rankings);
+
+dump("Poker Hands Rankings - from highest to lowest", $ranked);
 ```
 
 #### Texas Hold'em Hands
