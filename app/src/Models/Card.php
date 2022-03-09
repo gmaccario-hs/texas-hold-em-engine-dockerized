@@ -9,30 +9,6 @@ class Card implements iCard
     protected $denomination;
     protected $suit;
 
-    // Numbers conversion
-    protected $denominationsConversion = array(
-        "2" => 1,
-        "3" => 2,
-        "4" => 3,
-        "5" => 4,
-        "6" => 5,
-        "7" => 6,
-        "8" => 7,
-        "9" => 8,
-        "10" => 9,
-        "J" => 10,
-        "Q" => 11,
-        "K" => 12,
-        "A" => 13,
-    );
-
-    protected $suitsConversion = array(
-        "♥" => 43,
-        "♦" => 47,
-        "♣" => 53,
-        "♠" => 59,
-    );
-
     /**
      *
      * @return void
@@ -72,7 +48,23 @@ class Card implements iCard
      */
     public function getDenominationConverted(): int
     {
-        return $this->denominationsConversion[$this->denomination];
+        $denominationsConversion = array(
+            "2" => 1,
+            "3" => 2,
+            "4" => 3,
+            "5" => 4,
+            "6" => 5,
+            "7" => 6,
+            "8" => 7,
+            "9" => 8,
+            "10" => 9,
+            "J" => 10,
+            "Q" => 11,
+            "K" => 12,
+            "A" => 13,
+        );
+
+        return $denominationsConversion[$this->denomination];
     }
 
     /**
@@ -99,6 +91,13 @@ class Card implements iCard
      */
     public function getSuitConverted(): int
     {
-        return $this->suitsConversion[$this->suit];
+        $suitsConversion = array(
+            "♥" => 43,
+            "♦" => 47,
+            "♣" => 53,
+            "♠" => 59,
+        );
+
+        return $suitsConversion[$this->suit];
     }
 }
